@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CommunicationActivity">
+
+    <!-- Layout for when WiFi Direct Adapter is disabled -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clWfdAdapterDisabled"
+        android:padding="32dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Error message for WiFi Direct -->
+        <TextView
+            android:id="@+id/tvWfdError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WiFi Direct - Error"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+        <!-- Instructions to enable WiFi Direct Adapter -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="It seems your WiFi Direct Adapter is off. Please ensure that you turn ON WiFI in your settings!"
+            android:textSize="11sp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWfdError"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Layout for when there is no WiFi Direct connection -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNoWifiDirectConnection"
+        android:padding="32dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Title TextView for No WiFi Direct Connection -->
+        <TextView
+            android:id="@+id/tvWfdDisconnected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attendance and Feedback System"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+        <!-- Start Class Button -->
+        <Button
+            android:id="@+id/btnStartClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:onClick="startClass"
+            android:text="Start Class"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWfdDisconnected"
+            tools:ignore="HardcodedText" />
+
+        <!-- RecyclerView for Peer Listing -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPeerListing"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnStartClass"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Layout for when there is a WiFi Direct connection -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clHasConnection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- RecyclerView for Chat -->
+
+        <!-- LinearLayout for sending chat messages -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChat"
+            android:layout_width="365dp"
+            android:layout_height="306dp"
+            app:layout_constraintBottom_toTopOf="@+id/llChatSend"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.972" />
+
+        <LinearLayout
+            android:id="@+id/llChatSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- EditText for entering chat message -->
+            <EditText
+                android:id="@+id/etMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Enter message..."
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:minLines="3"
+                tools:ignore="HardcodedText" />
+
+            <!-- Button for sending chat message -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="sendMessage"
+                android:text="Send"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <!-- End Class Button -->
+        <Button
+            android:id="@+id/btnEndClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="endClass"
+            android:text="End Class"
+            app:layout_constraintBottom_toTopOf="@+id/rvChat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.283"
+            tools:ignore="HardcodedText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvStudents"
+            android:layout_width="358dp"
+            android:layout_height="124dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.242" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Network information (SSID) -->
+    <TextView
+        android:id="@+id/tvNetworkSSID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Network SSID: "
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <!-- Network password -->
+    <TextView
+        android:id="@+id/tvNetworkPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Network Password: "
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvNetworkSSID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
